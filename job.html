@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Board</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('job.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+    nav {
+      margin: 10px 0;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 5px 10px;
+      background: rgba(0, 123, 255, 0.8);
+      border-radius: 5px;
+    }
+    nav a:hover {
+      background: rgba(0, 86, 179, 0.8);
+    }
+    section {
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+    .job-card {
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .hidden {
+      display: none;
+    }
+    input[type="text"], button, form input {
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+    button {
+      background: rgba(0, 123, 255, 0.8);
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background: rgba(0, 86, 179, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Job Board</h1>
+    <nav>
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('job-listings')">Jobs</a>
+      <a href="#" onclick="showPage('employer-dashboard')">Employers</a>
+      <a href="#" onclick="showPage('candidate-dashboard')">Candidates</a>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home">
+    <h2>Welcome to Job Board</h2>
+    <p>Your one-stop solution for job seekers and employers.</p>
+    <h3>Featured Jobs</h3>
+    <div class="job-card">
+      <h4>Software Developer</h4>
+      <p>Location: Remote</p>
+      <button onclick="showPage('job-detail')">View Details</button>
+    </div>
+  </section>
+
+  <!-- Job Listings Section -->
+  <section id="job-listings" class="hidden">
+    <h2>Available Jobs</h2>
+    <input type="text" id="search-bar" placeholder="Search jobs...">
+    <div class="job-card">
+      <h4>Software Engineer</h4>
+      <p>Location: New York</p>
+      <button onclick="showPage('job-detail')">View Details</button>
+    </div>
+    <div class="job-card">
+      <h4>Data Analyst</h4>
+      <p>Location: London</p>
+      <button onclick="showPage('job-detail')">View Details</button>
+    </div>
+  </section>
+
+  <!-- Job Detail Section -->
+  <section id="job-detail" class="hidden">
+    <h2>Job Detail</h2>
+    <h3>Software Developer</h3>
+    <p>Location: Remote</p>
+    <p>Salary: $80,000/year</p>
+    <p>Description: Develop and maintain web applications.</p>
+    <button onclick="applyForJob()">Apply Now</button>
+  </section>
+
+  <!-- Employer Dashboard -->
+  <section id="employer-dashboard" class="hidden">
+    <h2>Employer Dashboard</h2>
+    <h3>Post a Job</h3>
+    <form id="post-job-form">
+      <input type="text" placeholder="Job Title" required>
+      <input type="text" placeholder="Location" required>
+      <input type="text" placeholder="Salary" required>
+      <button type="submit">Post Job</button>
+    </form>
+  </section>
+
+  <!-- Candidate Dashboard -->
+  <section id="candidate-dashboard" class="hidden">
+    <h2>Candidate Dashboard</h2>
+    <h3>Profile Management</h3>
+    <form id="profile-form">
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email" required>
+      <button type="submit">Update Profile</button>
+    </form>
+    <h3>Job Applications</h3>
+    <p>No applications yet.</p>
+  </section>
+
+  <script>
+    // Show a specific page
+    function showPage(pageId) {
+      // Hide all sections
+      document.querySelectorAll("section").forEach((section) => {
+        section.classList.add("hidden");
+      });
+      // Show the selected section
+      document.getElementById(pageId).classList.remove("hidden");
+    }
+
+    // Mock application process
+    function applyForJob() {
+      alert("Application submitted successfully!");
+    }
+
+    // Example search functionality
+    document.getElementById("search-bar")?.addEventListener("input", (event) => {
+      const searchQuery = event.target.value.toLowerCase();
+      document.querySelectorAll(".job-card").forEach((card) => {
+        const jobTitle = card.querySelector("h4").textContent.toLowerCase();
+        card.style.display = jobTitle.includes(searchQuery) ? "block" : "none";
+      });
+    });
+
+    // Mock form submissions
+    document.getElementById("post-job-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Job posted successfully!");
+    });
+
+    document.getElementById("profile-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Profile updated successfully!");
+    });
+  </script>
+</body>
+</html>
